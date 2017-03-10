@@ -36,7 +36,7 @@ router.put('/contatos/:id', function(req, res, next) {
             _id: new require('mongodb').ObjectID(req.params.id)
         }, req.body, function(err, response) {
             if (err) next(err);
-            res.end();
+            res.json(req.body);
             db.close();
         })
     });
@@ -47,7 +47,8 @@ router.post('/contatos', function(req, res, next) {
         if (err) next(err);
         db.collection('contatos').insertOne(req.body, function(err, r) {
             if (err) next(err);
-            res.json(response);
+
+            res.json(req.body);
             db.close();
         });
     });
