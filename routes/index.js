@@ -32,9 +32,14 @@ router.get('/contatos/:id', function(req, res, next) {
 router.put('/contatos/:id', function(req, res, next) {
     MongoClient.connect(url, function(err, db) {
         if (err) next(err);
+        console.log(req.body);
+
+        delete req.body._id;
+        
         db.collection('contatos').findOneAndUpdate({
             _id: new require('mongodb').ObjectID(req.params.id)
         }, req.body, function(err, response) {
+          console.log(err);
             if (err) next(err);
             res.json(req.body);
             db.close();
